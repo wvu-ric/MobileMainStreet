@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% include head.html %}
+<body>
+   
+
+
+     
+  <header class="navbar ">
+    <div class="nav-header">
+
+      <p class="nav-brand">
+         <a href="/MobileMainStreet/" class="navbar-title"> <img src="../img/m-small.png" class="logo-small"/>MOBILE MAIN STREET</a>
+      </p>
+   
+        <div class="navbar-inner inner-r h-valign">         
+          <a href="https://github.com/InnoCenter-WVUReedCollegeofMedia/MobileMainStreet" class="download-link button h-valigned h-valign"><span class="h-valigned hide-mobile">Github</span><span class="h-valigned show-mobile"><i class="i-download"></i></span>
+          </a>
+        </div>
+       </div>
+  </header>
+
+  <section id="content" class="content">
+ 
+    <nav class="nav">
+      <div class="nav-header-scroll">
+         <a href="/MobileMainStreet/" class="navbar-title nav-link"> <img src="../img/small-m-black.png" class="logo-small"/>MOBILE MAIN STREET</a>
+        <!--a href="{{ "/" | prepend: site.baseurl }}" class="navbar-title"><img src="../img/small-m-black.png" alt="" class="logo-small"/> MOBILE MAIN STREET</a-->
+      </div>
+      <div class="nav-inner">
+      </div>
+    </nav>
+
+    <article class="inner">
+      <div class="content">
+        {{ content }}
+      </div>
+    </article>
+  </section>
+    <!--nav class="nav-collapse">
+      <ul class="nav-menu">
+        <li><a href='{{ "/index.html" | prepend: site.baseurl }}'>Home</a></li>
+        <li class="selected"><a href='{{ "/documentation" | prepend: site.baseurl }}'>Documentation</a></li>
+      </ul>
+    </nav-->
+  <script src='{{ "/js/vendor/jquery-1.11.1.min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/jquery.mousewheel.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/jquery.jscrollpane.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/waypoints.min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/underscore-min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/backbone-min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/codemirror.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/codemirror/javascript.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/codemirror/markdown.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/codemirror/xml.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/docs.js" | prepend: site.baseurl }}'></script>
+
+  <script>
+    $(function() {
+      window.docs = new Docs();
+    });
+  </script>
+
+  <script>
+   // Google Analytics Placeholder
+  </script>
+</body>
+</html>

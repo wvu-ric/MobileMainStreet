@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% include head.html %}
+
+<body>
+  {{ content }}
+
+  <script src='{{ "/js/vendor/jquery-1.11.1.min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/underscore-min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/vendor/backbone-min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/main.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/filmstrip.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/js/jquery.waterwheelCarousel.min.js" | prepend: site.baseurl }}'></script>
+  <script src='{{ "/jwplayer/jwplayer.js" | prepend: site.baseurl }}'></script>
+  <script type="text/javascript">jwplayer.key="vNbHnTMz6QSI0HJ9tCPfed8+e+SWCj2HGYj2bw==";</script>
+
+
+  <script>
+    $(function() {
+      window.home = new Home();
+    });
+  </script>
+
+
+
+  <script>
+
+    
+    $( window ).load(function() {
+      var header = document.querySelector("#header");
+      var intFrameHeight = window.innerHeight;
+      $('#header').css('height', intFrameHeight+'px');
+    });
+    
+    $( window ).resize(function() {
+      var header = document.querySelector("#header");
+      var intFrameHeight = window.innerHeight;
+      $('#header').css('height', intFrameHeight+'px');
+    });
+    // Setup and initialize filmstrip
+    var img_array = new Array( "swing1", "chalk2", "dog3", "coffee4", "guitar5" );
+    var alt_img_array = new Array( "dance", "foraging", "locallymade", "mainstreet", "pizza" );
+    // Initial load could be placed directly in html
+    $("#img1").html("<img src=img/filmstrip/swing1.jpg>");
+    $("#img2").html("<img src=img/filmstrip/chalk2.jpg>");
+    $("#img3").html("<img src=img/filmstrip/dog3.jpg>");
+    $("#img4").html("<img src=img/filmstrip/coffee4.jpg>");
+    $("#img5").html("<img src=img/filmstrip/guitar5.jpg>");
+    startRotator(alt_img_array);
+
+     $(document).ready(function () {
+        // video
+        // detect if >= ie8 and use different player settings
+        var ieRevision = null;
+        if (navigator.appName == 'Microsoft Internet Explorer'){
+            var ua = navigator.userAgent;
+            var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+            if (re.exec(ua) != null){
+              ieRevision = parseFloat( RegExp.$1 );
+          }
+        }
+        if(ieRevision <= 8 && ieRevision != null){
+            jwplayer("video1").setup({                      // this is critical line
+               flashplayer: "jwplayer/jwplayer.flash.swf",
+               sources: [
+                   { file: "img/video/video-360p.mp4" },
+                   { file: "img/video/video-720p.mp4" }
+                 ],
+               width: "100%",
+               aspectratio: "16:9"
+           });
+        }else{
+           jwplayer("video1").setup({                      // this is critical line
+               flashplayer: "jwplayer/jwplayer.flash.swf",
+               image: "img/videostill.jpg",
+               sources: [
+                   { file: "img/video/video-360p.mp4" },
+                   { file: "img/video/video-720p.mp4" }
+                 ],
+               controls: 'false',
+               icons: 'false',
+               width: "100%",
+               aspectratio: "16:9"
+           });
+           
+            $( "#video-container" ).click(function() {
+                   if(jwplayer('video1').getPosition() <=0 || jwplayer('video1').getPosition() == jwplayer('video1').getDuration()){
+                       jwplayer('video1').play();
+                   }
+            });
+            jwplayer('video1').onTime(function(t) {
+                if(t.position > 0){
+                    jwplayer('video1').setControls(true);
+                } else {
+                    jwplayer('video1').setControls(false);
+                }
+            });
+           jwplayer('video1').onComplete(function() {
+                    jwplayer('video1').setControls(false);                 
+           });
+       }
+     
+        //carousel
+        var winWidth = $( window ).width();
+             initCarousel = function() {
+                var carousel = $("#carousel").waterwheelCarousel({
+                  flankingItems: 3,
+                  sizeMultiplier: .9,
+                  opacityMultiplier:1,
+                  movedFromCenter: function ($item) {
+                    $('#callback-output').prepend('movedFromCenter: ' + $item.attr('id') + '<br/>');
+                  },
+                  clickedCenter: function ($item) {
+                    $('#callback-output').prepend('clickedCenter: ' + $item.attr('id') + '<br/>');
+                  }
+                });
+
+                $('#prev').bind('click', function () {
+                  carousel.prev();
+                  return false
+                });
+
+                $('#next').bind('click', function () {
+                  carousel.next();
+                  return false;
+                });
+
+                $('#reload').bind('click', function () {
+                  newOptions = eval("(" + $('#newoptions').val() + ")");
+                  carousel.reload(newOptions);
+                  return false;
+                });
+               // Disable click on center image
+
+               $( "img.carousel-center" ).parent("a").click(function() {
+                   alert('click');
+               });
+          };
+       
+       // on resize
+       if(winWidth > 640){
+         initCarousel();
+       }
+       
+       function resizeFilmstrip(winW){
+            var imgH = $('#filmstrip-rotator img').css('height');
+            // adjust the height of the filmstrip container
+            if(winW < 1280){
+               $('.filmstrip').css('height', imgH.toString());
+            } else {
+               $('.filmstrip').css('height', "160");
+            }
+       }
+       $( window ).resize(function() {
+    
+            var winW = $(window).width();
+            resizeFilmstrip(winW);
+           
+            // reset carousel if needed
+            if(winW <= 640 && $( window ).width() > 640){
+               initCarousel();
+               winW = 645;// disables the resize;
+            }
+        });
+             
+        $( window ).load(function() {
+             var winW = $(window).width();
+            resizeFilmstrip(winW);
+        });
+        
+
+      });
+
+  </script>
+  
+  <script>
+   // Google Analytics Placeholder
+  </script>
+</body>
+</html>

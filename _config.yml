@@ -1,0 +1,12 @@
+# Site settings
+title: MobileMainStreet
+description: "Built for people to tell their stories"
+baseurl: "/MobileMainStreet"
+url: "http://localhost:4000"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  use_coderay: false
+permalink: pretty
+encoding: utf-8
