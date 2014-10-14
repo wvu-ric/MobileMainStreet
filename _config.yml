@@ -1,7 +1,6 @@
 # Site settings
 title: MobileMainStreet
 description: "Built for people to tell their stories"
-baseurl: "/MobileMainStreet"
 url: "http://mstreet.io"
 
 # Build settings
