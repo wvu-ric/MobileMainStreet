@@ -10,7 +10,7 @@ Mobile Main Street then checks your community members' social feeds every few mi
 As the community leader you have the ability to add and remove people from your community, mute individual posts, and open and close registration. Most importantly, however, the community leader can also invite community members to create a Mobile Main Street account so they can mute any of their own posts and update their own profile information. 
 
 ## Install Guide
-See the Github wiki for details.
+See the [Github wiki](https://github.com/InnoCenter-WVUReedCollegeofMedia/MobileMainStreet/wiki) for details.
 
 ## Contributing Code
 Interested in contributing code to Mobile Main Street? Great! Just submit a pull request and we'll take care of the rest. Please be detailed about what feature you're improving or bug you're fixing, this helps us get the request approved more quickly. 
